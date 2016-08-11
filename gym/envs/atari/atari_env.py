@@ -8,7 +8,7 @@ from gym.utils import seeding
 try:
     import atari_py
 except ImportError as e:
-    raise error.DependencyNotInstalled("{}. (HINT: you can install Atari dependencies with 'pip install gym[atari].)'".format(e))
+    raise error.DependencyNotInstalled("{}. (HINT: you can install Atari dependencies by running 'pip install gym[atari]'.)".format(e))
 
 import logging
 logger = logging.getLogger(__name__)
@@ -112,6 +112,17 @@ class AtariEnv(gym.Env, utils.EzPickle):
     def get_action_meanings(self):
         return [ACTION_MEANING[i] for i in self._action_set]
 
+    # def save_state(self):
+    #     return self.ale.saveState()
+
+    # def load_state(self):
+    #     return self.ale.loadState()
+
+    # def clone_state(self):
+    #     return self.ale.cloneState()
+
+    # def restore_state(self, state):
+    #     return self.ale.restoreState(state)
 
 
 ACTION_MEANING = {

@@ -58,6 +58,13 @@ register(
 )
 
 register(
+    id='CartPole-v1',
+    entry_point='gym.envs.classic_control:CartPoleEnv',
+    timestep_limit=500,
+    reward_threshold=475.0,
+)
+
+register(
     id='MountainCar-v0',
     entry_point='gym.envs.classic_control:MountainCarEnv',
     timestep_limit=200,
@@ -71,10 +78,9 @@ register(
 )
 
 register(
-    id='Acrobot-v0',
+    id='Acrobot-v1',
     entry_point='gym.envs.classic_control:AcrobotEnv',
-    timestep_limit=200,
-    reward_threshold=-100
+    timestep_limit=500,
 )
 
 # Box2d
@@ -149,6 +155,18 @@ register(
     entry_point='gym.envs.toy_text.taxi:TaxiEnv',
     timestep_limit=200,
     reward_threshold=9.7, # optimum = 10.2
+)
+
+register(
+    id='GuessingGame-v0',
+    entry_point='gym.envs.toy_text.guessing_game:GuessingGame',
+    timestep_limit=200,
+)
+
+register(
+    id='HotterColder-v0',
+    entry_point='gym.envs.toy_text.hotter_colder:HotterColder',
+    timestep_limit=200,
 )
 
 # Mujoco
@@ -440,11 +458,13 @@ register(
 register(
     id='PredictActionsCartpole-v0',
     entry_point='gym.envs.safety:PredictActionsCartpoleEnv',
+    timestep_limit=200,
 )
 
 register(
     id='PredictObsCartpole-v0',
     entry_point='gym.envs.safety:PredictObsCartpoleEnv',
+    timestep_limit=200,
 )
 
 # semi_supervised envs
@@ -452,16 +472,19 @@ register(
 register(
     id='SemisuperPendulumNoise-v0',
     entry_point='gym.envs.safety:SemisuperPendulumNoiseEnv',
+    timestep_limit=200,
 )
     # somewhat harder because of higher variance:
 register(
     id='SemisuperPendulumRandom-v0',
     entry_point='gym.envs.safety:SemisuperPendulumRandomEnv',
+    timestep_limit=200,
 )
     # probably the hardest because you only get a constant number of rewards in total:
 register(
     id='SemisuperPendulumDecay-v0',
     entry_point='gym.envs.safety:SemisuperPendulumDecayEnv',
+    timestep_limit=200,
 )
 
 # off_switch envs
