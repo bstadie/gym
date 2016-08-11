@@ -213,6 +213,29 @@ register(
     entry_point='gym.envs.mujoco:HumanoidStandupEnv',
 )
 
+register(
+    id='Impoint-v0',
+    entry_point='gym.envs.mujoco:ImPointEnv',
+    local_only=True
+)
+
+
+register(
+    id='Imreacher-v0',
+    entry_point='gym.envs.mujoco:ImReacherEnv',
+    local_only=True
+)
+
+register(
+    id='Impr2-v0',
+    entry_point='gym.envs.mujoco:ImPr2Env',
+    local_only=True
+)
+
+
+
+
+
 # Atari
 # ----------------------------------------
 

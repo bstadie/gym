@@ -11,10 +11,15 @@ except ImportError as e:
     raise error.DependencyNotInstalled("{}. (HINT: you need to install mujoco_py, and also perform the setup instructions here: https://github.com/openai/mujoco-py/.)".format(e))
 
 
-class ReacherEnv(mujoco_env.MujocoEnv, im_mujoco_env.ImMujocoEnv, utils.EzPickle):
+class ImReacherEnv(mujoco_env.MujocoEnv, im_mujoco_env.ImMujocoEnv, utils.EzPickle):
     def __init__(self):
         utils.EzPickle.__init__(self)
         im_mujoco_env.ImMujocoEnv.__init__(self)
+        self.reward_function = self.standard_reward
+        self.cam_azs = [None, 88.2]
+        self.cam_elevations = [None, -14.67]
+        self.cam_distance_multipliers = [0.8, 0.6]
+        self.generation_index = 1
         mujoco_env.MujocoEnv.__init__(self, 'reacher.xml', 2)
         self.goal = self.np_random.uniform(low=-.2, high=.2, size=2)
 
@@ -58,16 +63,22 @@ class ReacherEnv(mujoco_env.MujocoEnv, im_mujoco_env.ImMujocoEnv, utils.EzPickle
             self.model.data.qvel.flat[:2],
             self.get_body_com("fingertip") - self.get_body_com("target")
         ])
-        self.render()
+        self._render()
         im = self._get_viewer().get_image()
         self.store_image(im)
         return state_obs
 
     def _get_viewer(self):
-        if self.viewer is None:
-            self.viewer = mujoco_py.MjViewer(fixed_cam_coordinates=self.fixed_camera, fixed_cam=True,
-                                             init_height=self.camera_height, init_width=self.camera_width)
+        if self.viewer is None or self.reset_viewer is True:
+            self.viewer = mujoco_py.MjViewer(fixed_cam=True,
+                                             cam_distance_multiplier=self.cam_distance_multipliers[self.generation_index],
+                                             init_height=self.camera_height, init_width=self.camera_width,
+                                             fixed_cam_coordinates=self.fixed_camera,
+                                             cam_azenith=self.cam_azs[self.generation_index],
+                                             cam_elevation=self.cam_elevations[self.generation_index])
             self.viewer.start()
             self.viewer.set_model(self.model)
             self.viewer_setup()
+            if self.reset_viewer is True:
+                self.reset_viewer = False
         return self.viewer

@@ -57,10 +57,8 @@ class EnvSpec(object):
         """Instantiates an instance of the environment with appropriate kwargs"""
         if self._entry_point is None:
             raise error.Error('Attempting to make deprecated env {}. (HINT: is there a newer registered version of this env?)'.format(self.id))
-
         cls = load(self._entry_point)
         env = cls(**self._kwargs)
-
         # Make the enviroment aware of which spec it came from.
         env.spec = self
         return env

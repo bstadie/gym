@@ -24,7 +24,7 @@ class MujocoEnv(gym.Env):
             fullpath = os.path.join(os.path.dirname(__file__), "assets", model_path)
         if not path.exists(fullpath):
             raise IOError("File %s does not exist"%fullpath)
-        self.frame_skip= frame_skip
+        self.frame_skip = frame_skip
         self.model = mujoco_py.MjModel(fullpath)
         self.data = self.model.data
         self.viewer = None
