@@ -10,8 +10,8 @@ class ImMujocoEnv:
         self.burn_in_steps = np.inf
         self.fixed_camera = [0.0, 0.0, 0.0]
         self.image_history_step = 0
-        self.camera_width = 100
-        self.camera_height = 100
+        self.camera_width = 300
+        self.camera_height = 300
         self.reset_viewer = False
 
         self.gan_discriminator = None
